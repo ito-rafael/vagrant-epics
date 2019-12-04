@@ -1,0 +1,12 @@
+# tasks file for epics
+
+- apt:
+    name:
+      - build-essential
+      - git
+      - iperf3
+      - nmap
+      - openssh-server
+      - procserv
+      - socat
+    update-cache: yes

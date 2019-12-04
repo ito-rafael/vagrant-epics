@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
   #-------------------------------------
   # ansible
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook/install-epics.yml"
+    ansible.playbook = "ansible/playbook.yml"
     #ansible.ask_become_pass = true
     ansible.verbose = true
   end

@@ -1,0 +1,5 @@
+#
+- apt:
+    name:
+      - gnome
+    update-cache: yes

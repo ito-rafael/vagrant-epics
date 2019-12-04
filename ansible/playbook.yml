@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+
+  roles:
+    - {role: install-gnome}
+    - {role: install-epics}
+#    - /home/rafael/RAFAEL/git/vagrant/install-epics
+
+...
