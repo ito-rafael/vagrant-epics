@@ -1,0 +1,20 @@
+---
+# tasks file for VNC
+#---------------------------------------
+- name: configure dconf
+  dconf:
+    key: '/org/gnome/desktop/remote-access/enabled'
+    value: 'true'
+#---------------------------------------
+#- name: vino disable prompt
+#  dconf:
+#    key: '/org/gnome/desktop/remote-access/prompt-enabled'
+#    value: 'false'    
+#---------------------------------------
+#- name: vino /org/gnome/desktop/remote-access/require-encryption
+#  dconf:
+#    key: '/org/gnome/desktop/remote-access/require-encryption'
+#    value: 'false'       
+#---------------------------------------
+...
+
