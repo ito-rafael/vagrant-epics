@@ -1,5 +1,27 @@
-#
-- apt:
+---
+# task for configuring GNOME
+
+- name: install packages
+  apt:
     name:
       - gnome
+      - python3-apt
+      - python3-psutil
     update-cache: yes
+  become: yes
+
+- name: configure dconf
+  dconf:
+    key: '/org/gnome/desktop/remote-access/enabled'
+    value: 'true'
+
+#- name: vino disable prompt
+#  dconf:
+#    key: '/org/gnome/desktop/remote-access/prompt-enabled'
+#    value: 'false'    
+#
+#- name: vino /org/gnome/desktop/remote-access/require-encryption
+#  dconf:
+#    key: '/org/gnome/desktop/remote-access/require-encryption'
+#    value: 'false'       
+...
