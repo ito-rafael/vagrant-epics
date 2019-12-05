@@ -1,4 +1,0 @@
----
-# tasks file for install-epics
-#- include: install-packages.yml
-#- include: install-epics-base.yml

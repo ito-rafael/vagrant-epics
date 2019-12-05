@@ -1,0 +1,33 @@
+---
+# task file for asynDriver
+#---------------------------------------
+- name: create asynDriver directory
+  file:
+    path: /opt/epics-R3.15.5/modules
+    state: directory
+#---------------------------------------
+- name: download asynDriver
+  get_url:
+    dest: /opt/epics-R3.15.5/modules/
+    url: https://www.aps.anl.gov/epics/download/modules/asyn4-33.tar.gz
+#---------------------------------------
+- name: extract files
+  unarchive:
+    src: /opt/epics-R3.15.5/modules/asyn4-33.tar.gz
+    dest: /opt/epics-R3.15.5/modules
+    remote_src: yes
+#---------------------------------------
+- name: remove compressed downloaded file
+  file:
+    path: /opt/epics-R3.15.5/modules/asyn4-33.tar.gz
+    state: absent
+#---------------------------------------
+- name: edit RELEASE file
+  command: sed -i -e '3,4s/^/#/' -e '8s/^/#/' -e '11s/^/#/' -e '14cEPICS_BASE=/opt/epics-R3.15.5/base' /opt/epics-R3.15.5/modules/asyn4-33/configure/RELEASE
+#---------------------------------------
+- name: install asynDriver
+  make:
+    chdir: /opt/epics-R3.15.5/modules/asyn4-33/
+#---------------------------------------
+...
+

@@ -5,6 +5,7 @@
   apt: 
     name:
       - libreadline-gplv2-dev
+      - build-essential
     update_cache: yes
 #---------------------------------------
 - name: create EPICS directory

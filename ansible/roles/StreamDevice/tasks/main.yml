@@ -1,0 +1,45 @@
+---
+# task file for StreamDevice
+#---------------------------------------
+- name: install requirements
+  apt:
+    name:
+      - libpcre3-dev
+    update-cache: yes
+#---------------------------------------
+- name: create StreamDevice directory
+  file:
+    path: /opt/epics-R3.15.5/modules/StreamDevice-2.7.11
+    state: directory
+#---------------------------------------
+- name: edit makeBaseApp.pl
+  command: echo '' | makeBaseApp.pl -t support && echo ''
+#---------------------------------------
+- name: download StreamDevice
+  get_url:
+    dest: /opt/epics-R3.15.5/modules/StreamDevice-2.7.11/
+    url: https://github.com/paulscherrerinstitute/StreamDevice/archive/stream_2_7_11.tar.gz
+#---------------------------------------
+- name: extract files
+  unarchive:
+    src: /opt/epics-R3.15.5/modules/StreamDevice-2.7.11/stream_2_7_11
+    dest: /opt/epics-R3.15.5/modules/StreamDevice-2.7.11/
+    remote_src: yes
+#---------------------------------------
+- name: remove compressed downloaded file
+  file:
+    path: /opt/epics-R3.15.5/modules/StreamDevice/stream_2_7_11.tar.gz
+    state: absent
+#---------------------------------------
+# sed
+# echo
+#---------------------------------------
+- name: remove GNUmakefile
+  file:
+    path: /opt/epics-R3.15.5/modules/StreamDevice-stream_2_7_11
+    state: absent
+#---------------------------------------
+# sed
+#---------------------------------------
+...
+

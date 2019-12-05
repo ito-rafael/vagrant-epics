@@ -6,7 +6,10 @@
 
   roles:
     - role: install-gnome
-    - {role: install-epics, become: yes}
+    - {role: EPICS-base, become: yes}
+    - {role: asynDriver, become: yes}
+    - {role: StreamDevice, become: yes}
+#    - {role: install-epics, become: yes}
 
   vars:
     ansible_python_interpreter: /usr/bin/python3
