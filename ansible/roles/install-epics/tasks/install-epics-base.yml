@@ -1,28 +1,38 @@
+---
 # tasks file for epics
-
-- apt: 
+#---------------------------------------
+- name: install requirements
+  apt: 
     name:
       - libreadline-gplv2-dev
     update_cache: yes
-
-- file:
+#---------------------------------------
+- name: create EPICS directory
+  file:
     path: /opt/epics-R3.15.5/
     state: directory
-
-- get_url:
+#---------------------------------------
+- name: download EPICS base
+  get_url:
     dest: /opt/epics-R3.15.5/base-3.15.5.tar.gz
     url: https://epics.anl.gov/download/base/base-3.15.5.tar.gz
-
-- unarchive:
+#---------------------------------------
+- name: extract files
+  unarchive:
     src: /opt/epics-R3.15.5/base-3.15.5.tar.gz
     dest: /opt/epics-R3.15.5/
     remote_src: yes
-
-- file:
+#---------------------------------------
+- name: remove compressed downloaded file
+  file:
     path: /opt/epics-R3.15.5/base-3.15.5.tar.gz
     state: absent
-
-- command: mv /opt/epics-R3.15.5/base-3.15.5 /opt/epics-R3.15.5/base
-
-- make:
+#---------------------------------------
+- name: move directory extracted to base
+  command: mv /opt/epics-R3.15.5/base-3.15.5 /opt/epics-R3.15.5/base
+#---------------------------------------
+- name: install EPICS base
+  make:
     chdir: /opt/epics-R3.15.5/base/
+#---------------------------------------
+...

@@ -1,6 +1,7 @@
 # tasks file for epics
 
-- apt:
+- name: install requirements
+  apt:
     name:
       - build-essential
       - git

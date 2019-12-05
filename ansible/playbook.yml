@@ -1,10 +1,16 @@
 ---
-- hosts: all
-  become: true
+#- hosts: all
+- hosts: localhost
+  #become: true
+  #become_user: vagrant 
 
   roles:
-    - {role: install-gnome}
-    - {role: install-epics}
-#    - /home/rafael/RAFAEL/git/vagrant/install-epics
+    - role: install-gnome
+    - {role: install-epics, become: yes}
 
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  environment:
+#    EPICS_BASE: /opt/epics-R3.15.5/base    
 ...
