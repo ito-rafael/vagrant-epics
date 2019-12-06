@@ -1,4 +1,0 @@
----
-# tasks file for install-gnome
-- include: install-gnome.yml
-
