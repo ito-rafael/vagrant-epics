@@ -1,0 +1,40 @@
+---
+# tasks file for GNOME
+#---------------------------------------
+- name: check if conda dir exists
+  stat:
+    path: /opt/conda/bin
+  register: conda_dir
+#=======================================
+# execute codes below only if conda is not installed yet
+#=======================================
+#- name: get conda
+#  get_url:
+#    dest: /opt
+#    url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#    mode: o+x
+#  when: conda_dir.stat.exists == False
+#---------------------------------------
+- name: run conda installer
+  command: 
+    chdir: /opt
+    cmd: "./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda"
+#    removes: Miniconda3-latest-Linux-x86_64.sh 
+  when: conda_dir.stat.exists == False
+#---------------------------------------
+#- name: remove installer
+#  file:
+#    dest: /opt/Miniconda3-latest-Linux-x86_64.sh
+#    state: absent
+#  when: conda_dir.stat.exists == False
+##---------------------------------------
+#- name: edit PATH variable
+#  lineinfile:
+#    dest: /etc/environment
+#    state: present
+#    backrefs: yes
+#    regexp: 'PATH=(["]*)((?!.*?{{extra_path}}).*?)(["]*)$'
+#    line: "PATH=\1\2:{{extra_path}}\3"
+#=======================================
+#---------------------------------------
+...

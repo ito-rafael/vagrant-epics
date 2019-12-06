@@ -1,0 +1,20 @@
+---
+# tasks file for GNOME
+#---------------------------------------
+- name: install requirements
+  apt:
+    name:
+      - python3-apt
+      - python3-psutil
+      - build-essential
+      - git
+      - iperf3
+      - nmap
+      - openssh-server
+      - procserv
+      - socat
+      - gnome
+    update-cache: yes
+  become: yes
+#---------------------------------------
+...
