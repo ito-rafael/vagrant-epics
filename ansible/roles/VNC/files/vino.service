@@ -1,0 +1,8 @@
+[Unit]
+Description = Startup Vino at boot
+After = network.target
+[Service]
+ExecStartPre = /bin/sleep 5
+ExecStart = /usr/lib/vino/vino-server
+[Install]
+WantedBy = multi-user.target

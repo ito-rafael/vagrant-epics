@@ -1,20 +1,63 @@
 ---
 # tasks file for VNC
 #---------------------------------------
+- name: install X.Org packages
+  apt:
+    name:
+#      - xserver-xorg-video-dummy
+      - xorg-video-abi-24
+      - xserver-xorg-video-dummy-hwe-18.04
+      - xinit
+  become: yes
+#---------------------------------------
+- name: copy xorg.conf template file
+  copy:
+    src: files/xorg.conf
+    dest: /etc/X11/xorg.conf
+    mode: "644"
+  become: yes
+#---------------------------------------
+- name: create directory
+  file:
+    dest: "{{ HOME }}/.config/systemd/user"
+    state: directory
+#---------------------------------------
+- name: copy Vino service file
+  copy:
+    src: files/vino.service
+    dest: "{{ HOME }}/.config/systemd/user/vino.service"
+    mode: "755"
+#  become: yes
+#---------------------------------------
+- name: enable Vino to start on boot
+  systemd:
+    name: vino
+    enabled: yes
+    state: started
+    scope: user
+#  become: yes
+#=======================================
+- name: create a copy of xinit file in user dir
+  copy:
+    src: /etc/X11/xinit/xinitrc
+    dest: "{{ HOME }}/.xinitrc"
+    remote_src: yes
+    mode: "755"
+#---------------------------------------
 - name: configure dconf
   dconf:
     key: '/org/gnome/desktop/remote-access/enabled'
     value: 'true'
 #---------------------------------------
-#- name: vino disable prompt
-#  dconf:
-#    key: '/org/gnome/desktop/remote-access/prompt-enabled'
-#    value: 'false'    
+- name: vino disable prompt
+  dconf:
+    key: '/org/gnome/desktop/remote-access/prompt-enabled'
+    value: 'false'    
 #---------------------------------------
-#- name: vino /org/gnome/desktop/remote-access/require-encryption
-#  dconf:
-#    key: '/org/gnome/desktop/remote-access/require-encryption'
-#    value: 'false'       
+- name: vino /org/gnome/desktop/remote-access/require-encryption
+  dconf:
+    key: '/org/gnome/desktop/remote-access/require-encryption'
+    value: 'false'       
 #---------------------------------------
 ...
 
